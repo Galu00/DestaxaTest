@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE isopackager SYSTEM "http://jpos.org/dtd/packager.dtd">
+<isopackager>
+    <isofield id="0" length="4" name="Message Type Indicator" class="org.jpos.iso.IFA_NUMERIC"/>
+    <isofield id="4"  length="12" name="Transaction Amount" class="org.jpos.iso.IFA_NUMERIC"/>
+    <isofield id="7" length="10" name="Transmission Date &amp; Time" class="org.jpos.iso.IFA_NUMERIC"/>
+    <isofield id="11" length="6"  name="System Trace Audit Number" class="org.jpos.iso.IFA_NUMERIC"/>
+    <isofield id="12" length="6"  name="Local Transaction Time" class="org.jpos.iso.IFA_NUMERIC"/>
+    <isofield id="13" length="4"  name="Local Transaction Date" class="org.jpos.iso.IFA_NUMERIC"/>
+    <isofield id="38" length="6"  name="Authorization Identification Response" class="org.jpos.iso.IF_CHAR"/>
+    <isofield id="39" length="3"  name="Response Code" class="org.jpos.iso.IF_CHAR"/>
+    <isofield id="42" length="15" name="Card Acceptor ID Code" class="org.jpos.iso.IF_CHAR"/>
+    <isofield id="127" length="20" name="Private Field" class="org.jpos.iso.IF_CHAR"/>
+</isopackager>
