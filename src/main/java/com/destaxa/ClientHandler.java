@@ -1,5 +1,8 @@
 package com.destaxa;
 
+import org.jpos.iso.ISOMsg;
+import org.jpos.iso.packager.GenericPackager;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -21,7 +24,6 @@ public class ClientHandler implements Runnable {
                         new OutputStreamWriter(socket.getOutputStream()), true
                 )
         ) {
-
             String rawRequest = reader.readLine();
             if (rawRequest == null || rawRequest.isEmpty()) {
                 System.out.println("Empty message received, ignored.");
@@ -30,12 +32,17 @@ public class ClientHandler implements Runnable {
 
             System.out.println("Message received:\n" + rawRequest);
 
-            ISOMessage isoRequest = ISOMessage.fromIsoString(rawRequest);
+            GenericPackager packager = new GenericPackager("iso87ascii.xml");
 
-            ISOMessage isoResponse = AuthorizationRules.process(isoRequest);
+            ISOMsg isoRequest = new ISOMsg();
+            isoRequest.setPackager(packager);
+            isoRequest.unpack(rawRequest.getBytes());
+
+            ISOMsg isoResponse = AuthorizationRules.process(isoRequest);
 
             if (isoResponse != null) {
-                String responseText = isoResponse.toIsoString();
+                byte[] packed = isoResponse.pack();
+                String responseText = new String(packed);
                 System.out.println("Sending response:\n" + responseText);
                 writer.println(responseText);
             } else {

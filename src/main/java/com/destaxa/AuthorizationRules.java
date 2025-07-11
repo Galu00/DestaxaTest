@@ -1,10 +1,11 @@
 package com.destaxa;
 
 import org.jpos.iso.ISOMsg;
+import org.jpos.iso.packager.GenericPackager;
 
 public class AuthorizationRules {
 
-    private static final String XML_LAYOUT = "iso87ascii.xml";
+    private static final String PACKAGER_PATH = "iso87ascii.xml";
 
     public static ISOMsg process(ISOMsg request) throws Exception {
         String valorStr = request.getString(4);
@@ -15,6 +16,7 @@ public class AuthorizationRules {
         if (valor > 100000) return null;
 
         ISOMsg response = new ISOMsg();
+        response.setPackager(new GenericPackager(PACKAGER_PATH));
         response.setMTI("0210");
 
         response.set(4, valorStr);
@@ -44,4 +46,3 @@ public class AuthorizationRules {
         return "NSU" + System.currentTimeMillis();
     }
 }
-
